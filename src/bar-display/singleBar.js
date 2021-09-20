@@ -10,6 +10,7 @@ function SingleBar(props) {
       <svg width={width} height={height} class="bar">
         <rect width={width} height={height}></rect>
       </svg>
+      <p>{height}</p>
     </>
   );
 }

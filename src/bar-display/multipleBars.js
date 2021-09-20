@@ -4,19 +4,19 @@
  */
 import React, { useState } from "react";
 import SingleBar from "./SingleBar";
-import { state } from "../testData";
+//import { state } from "../testData";
 
-function MultipleBars() {
-  const [bar, setBar] = useState({}); // a single bar
-  const [allBars, setAllBars] = useState([]); // array of all bars
-  let num = state.length;
+// props is an array
+function MultipleBars(props) {
+  let num = props.length;
   let width = num / 10;
-  let all = state.map((height) => {
+  // need to alter height and widths here or maybe I pass as props as well since the width should remain the same and height should remain the same
+  let allBars = props.map((height) => {
     return <SingleBar height={10 * height} width={10 * width}></SingleBar>;
   });
   return (
     <>
-      <section>{all}</section>
+      <section>{allBars}</section>
     </>
   );
 }

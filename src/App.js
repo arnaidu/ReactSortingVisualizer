@@ -1,14 +1,11 @@
-import react from "react";
-import "./App.css";
-import ChooseSort from "./bar-display/ChooseSort";
-import MultipleBars from "./bar-display/MultipleBars";
+import React from "react";
+import Sort from "./bar-display/Sort";
 
 function App() {
   return (
     <div className="container">
       <h1>Sorting Visualizer</h1>
-      <ChooseSort />
-      <MultipleBars />
+      <Sort />
     </div>
   );
 }

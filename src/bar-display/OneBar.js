@@ -7,7 +7,7 @@ const OneBar = (props) => {
       <svg width={width} height={height} className="bar">
         <rect width={width} height={height}></rect>
       </svg>
-      <p>1</p>
+      <p className="p1">{height}</p>
     </>
   );
 };

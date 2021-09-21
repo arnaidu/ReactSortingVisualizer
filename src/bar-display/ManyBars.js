@@ -2,18 +2,18 @@ import React from "react";
 import OneBar from "./OneBar";
 
 const ManyBars = (props) => {
-  const { array, height, width } = props;
-  const allBars = array.map((item) => {
+  const { array, width } = props;
+  const allBars = array.map((item, index) => {
     return (
-      <div key={item} className="div1">
-        <OneBar height={item} width={width} />
+      <div key={index} className="div1">
+        <OneBar height={item * 100} width={width} />
       </div>
     );
   });
 
   return (
     <>
-      <div>{allBars}</div>
+      <section>{allBars}</section>
     </>
   );
 };

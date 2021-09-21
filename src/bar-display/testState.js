@@ -1,1 +1,1 @@
-export const testState = [500, 400, 300, 200, 100];
+export const testState = [300, 200, 150, 100, 50];

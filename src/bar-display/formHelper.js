@@ -1,13 +1,5 @@
 /**
- * Handles all validation for the one form in the application
- * @returns
- */
-export const validate = () => {
-  return;
-};
-
-/**
- *
+ * Convert a string containing numbers separated by commas to an array of inetegers
  * @param {string} stringArray
  * @returns Integer array form of stringArray
  */

@@ -28,22 +28,18 @@ def bubbleSort(arr):
 export const bubbleSortStep = (prevState) => {
   let { array, i, j, done, timer } = prevState;
   console.log("in bubbleSortStep");
-  console.log(i);
-  console.log(j);
-  console.log(done);
-  console.log(array);
-  console.log(timer);
 
   const n = array.length;
 
   // this means on the current step, we have already finished. So return the object which will result in
   // no state change except tell us that we are done, and reset the timer
-  if (i >= n) {
+  if (i >= n && !done) {
     return {
       array: array,
       i: i,
       j: j,
       done: true,
+      timer: timer,
     };
   }
 
@@ -65,5 +61,6 @@ export const bubbleSortStep = (prevState) => {
     i: i,
     j: j,
     done: false,
+    timer: timer,
   };
 };

@@ -12,8 +12,14 @@ export const bubbleSortInit = (arr) => {
   };
 };
 
+// Index of the bars which are being swapped
+export const barsSwapped = {
+  firstBar: 0,
+  secondBar: 0,
+};
+
 /* Use the python implementation to help make the function for this
-def bubbleSort(arr):
+def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
         for j in range(n - i - 1):

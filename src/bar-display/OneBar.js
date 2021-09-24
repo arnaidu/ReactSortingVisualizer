@@ -1,6 +1,6 @@
 import React from "react";
 
-const OneBar = (props) => {
+const OneBar = React.memo((props) => {
   const { height, width } = props;
   return (
     <>
@@ -10,6 +10,6 @@ const OneBar = (props) => {
       <p className="p1">{height}</p>
     </>
   );
-};
+});
 
 export default OneBar;

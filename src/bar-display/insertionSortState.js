@@ -1,90 +1,59 @@
 /**
  *
- * @param {number[]} arr
+ * @param {number[]} array
  * @returns initial state used for inerstion sort visualizer
  */
-export const insertionSortInit = (arr) => {
+export const insertionSortInit = (array) => {
   return {
-    array: arr,
+    array: array,
     i: 1,
     j: 0,
-    key: arr[1],
+    key: array.length >= 2 ? array[1] : 0,
     done: false,
   };
 };
 
-/* Use the python implementation to help make the function for this
-def insertion_sort(arr):
-	n = len(arr)
-	for i in range(1, n):
-	    key = arr[i]
-		j = i - 1
-		while j >= 0 and key < arr[j]:
-		    arr[j+1] = arr[j]
-		    j -= 1
-        arr[j+1] = key
- */
-/*
-def insertion_sort(arr):
-    n = len(arr)
-    for i in range(1, n):
-        key = arr[i]
-        k = 0
-        for j in range(i - 1, -1, -1):
-            if key < arr[j]:
-                arr[j + 1] = arr[j]
-                k = j - 1
-            else:
-                break
-        arr[k + 1] = key        
-*/
 /**
  *
  * @param {state} prevState
  * @returns next step in the insertion sort algorithm
  */
 export const insertionSortStep = (prevState) => {
-  let { array, i, j, done, key, timer } = prevState;
-  console.log("in insertionSortStep");
+  let { array, i, j, key, done, timer } = prevState;
+  //console.log("in insertionSortStep");
+  console.log("prevState in inerstionSortStep: ", prevState);
+  console.log("key: ", key);
 
   const n = array.length;
+  //console.log("entering done: ", i >= n && !done);
   if (i >= n && !done) {
     return {
       array: array,
       i: i,
       j: j,
-      done: true,
       key: key,
+      done: true,
       timer: timer,
     };
   }
-  console.log(i);
-  console.log(j);
-  if (j >= 0 && key < array[j]) {
-    // let element = array[j + 1];
-    console.log(array);
+  //const temp = array[i];
+  if (j > -1 && array[j] > key) {
     array[j + 1] = array[j];
     array[j] = key;
-    console.log(key);
-    console.log(array);
-    j--;
+    j = j - 1;
   } else {
-    array[j + 1] = key;
-    console.log(array);
-    i++;
-    key = array[i];
+    i = i + 1;
     j = i - 1;
-    console.log("in else insertionSortStep");
-    console.log(key);
-    console.log(array);
+    if (i < n) {
+      key = array[i];
+    }
   }
-
   return {
     array: array,
     i: i,
     j: j,
-    done: false,
     key: key,
+    done: false,
     timer: timer,
   };
 };

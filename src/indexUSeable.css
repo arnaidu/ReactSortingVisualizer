@@ -1,0 +1,196 @@
+/* global classes */
+
+.container {
+  text-align: center;
+  margin-top: 1rem;
+  color: rgb(205, 241, 194);
+}
+
+.nav-bar {
+  align-items: center;
+  margin-top: 1rem;
+  color: rgb(205, 241, 194);
+}
+
+#instructions {
+  font-size: small;
+  text-align: left;
+  float: left;
+}
+
+.bars {
+  text-align: center;
+  vertical-align: baseline;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  display: inline-block;
+  bottom: 50px;
+  background-color: #fff;
+  transform: scaleY(-1);
+  height: 50%;
+}
+.bar {
+  width: 50px;
+  min-height: 1rem;
+  background: hsl(221, 66%, 17%);
+  box-shadow: 0px 0px 2px rgb(255, 255, 255);
+  opacity: 0.9;
+  position: relative;
+  transition-delay: 20ms;
+  transition-property: left;
+  transition: all 0.2s cubic-bezier(0.16,  1,  0.3,  1);
+  font-size: 1.5rem;
+  font-weight: 200;
+  display: inline-block;
+  transform: scaleY(-1);
+}
+
+div + div {
+  margin-left: 8px;
+}
+
+.logo {
+  float: left;
+  font-size: 30pt;
+  margin-left: 20px;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 7px rgb(91, 236, 255), 0 0 10px rgb(91, 236, 255),
+    0 0 21px rgb(91, 236, 255), 0 0 42px rgb(91, 236, 255),
+    0 0 82px rgb(91, 236, 255), 0 0 92px rgb(91, 236, 255),
+    0 0 102px rgb(91, 236, 255), 0 0 151px rgb(91, 236, 255);
+  display: inline;
+  letter-spacing: var(--spacing);
+  text-transform: capitalize;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-family: Verdana;
+}
+
+#labels {
+  color: rgb(255, 255, 255);
+  font-family: Verdana;
+  text-shadow: 0 0 7px rgb(91, 236, 255), 0 0 10px rgb(91, 236, 255),
+    0 0 21px rgb(91, 236, 255), 0 0 42px rgb(91, 236, 255),
+    0 0 82px rgb(91, 236, 255), 0 0 92px rgb(91, 236, 255),
+    0 0 102px rgb(91, 236, 255), 0 0 151px rgb(91, 236, 255);
+}
+
+.inputs input {
+  background: white;
+  opacity: 0.75;
+  padding: 0.25rem 0.5rem;
+  font-weight: bold;
+}
+
+.inputs select,
+option {
+  background: var(--clr-white);
+  padding: 0.25rem 0.5rem;
+  opacity: 0.75;
+  font-weight: bold;
+}
+
+.inputs select:focus {
+  border-color: rgb(91, 236, 255);
+  box-shadow: 0px 0px 20px rgb(91, 236, 255);
+}
+
+.inputs input:focus {
+  border-color: rgb(91, 236, 255);
+  box-shadow: 0px 0px 20px rgb(91, 236, 255);
+}
+
+.inputs {
+  position: relative;
+  grid-template-columns: 100px 1fr;
+  margin-top: 10px;
+  margin-left: 480px;
+  width: 500px;
+  align-items: center;
+  display: grid;
+}
+
+.input-error {
+  position: relative;
+}
+
+#input1 {
+  position: relative;
+  display: inline-block;
+}
+
+#input2 {
+  position: relative;
+  display: inline-block;
+}
+
+.centered-form {
+  display: grid;
+
+  align-items: center;
+}
+
+#buttons {
+  position: fixed;
+  left: 50%;
+  transform: translateX(400px) translateY(-50px);
+}
+
+.pushable {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 140px;
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(221, 66%, 16%) 0%,
+    hsl(221, 66%, 32%) 8%,
+    hsl(221, 66%, 32%) 92%,
+    hsl(221, 66%, 16%) 100%
+  );
+}
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  color: white;
+  background: hsl(221, 66%, 17%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 60ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+.pushable:hover {
+  filter: brightness(110%);
+}
+.pushable:hover .front {
+  transform: translateY(-6px);
+  transition: transform 25ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+  text-shadow: 0 0 7px rgb(91, 236, 255), 0 0 10px rgb(91, 236, 255),
+    0 0 21px rgb(91, 236, 255), 0 0 42px rgb(91, 236, 255),
+    0 0 82px rgb(91, 236, 255), 0 0 92px rgb(91, 236, 255),
+    0 0 102px rgb(91, 236, 255), 0 0 151px rgb(91, 236, 255);
+}
+.pushable:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.pushable:focus:not(:focus-visible) {
+  outline: none;
+}

@@ -1,5 +1,3 @@
-import { error } from "./errorHandling";
-
 /**
  * Convert a string containing numbers separated by commas to an array of inetegers
  * Input should be number,number,...,number
@@ -40,25 +38,17 @@ export const handleChangeHelper = (e, formInput, setFormInput) => {
   setFormInput({ ...formInput, [name]: value });
 };
 
-const checkBounds = (stringArray) => {
-  const numArray = stringToArray(stringArray);
-  if (Math.min(numArray) < -20 || Math.max(numArray) > 20) {
-    return false;
-  }
-  return true;
-};
-
+/*
 export const handleSubmitHelper = (
-  e,
   formInput,
   errorState,
-  setFormInput,
-  setErrorState
+  properArray,
+  valid,
+  validBounds
 ) => {
-  e.preventDefault();
   // Can we submit?
   if (!formInput.submit) {
-    return { ...error, errorState: true, canSubmit: false };
+    return { ...errorState, errorState: false };
   } else {
     var properArray = processInputs(formInput.array);
     formInput.array = properArray;
@@ -67,7 +57,7 @@ export const handleSubmitHelper = (
       var validBounds = checkBounds(properArray);
     }
     return {
-      ...error,
+      ...errorState,
       errorState: true,
       isValidArray: valid,
       existInputAlgo: formInput.algorithm !== "",
@@ -77,3 +67,4 @@ export const handleSubmitHelper = (
     };
   }
 };
+*/

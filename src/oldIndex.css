@@ -1,0 +1,147 @@
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: var(--spacing);
+  text-transform: capitalize;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 0.75rem;
+  color: red;
+}
+p {
+  line-height: 0.5;
+  margin-bottom: 0.1rem;
+  font-size: 0.75rem;
+  color: red;
+}
+
+.barGreen {
+  fill: rgb(60, 145, 74);
+  stroke-width: 5;
+  stroke: rgb(255, 255, 255);
+  resize: none;
+}
+
+.barYellow {
+  fill: rgb(238, 235, 59);
+  stroke-width: 5;
+  stroke: rgb(255, 255, 255);
+  resize: none;
+}
+
+.btn {
+  display: inline-block;
+  background: rgb(91, 89, 224);
+  color: var(--clr-white);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius);
+  border-color: transparent;
+  text-transform: capitalize;
+  font-size: 1rem;
+  line-height: 10px;
+  letter-spacing: var(--spacing);
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.body4  {
+  font-family: "Inter",  sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  line-height: 1.5;
+  color: #2a2a2a;
+  background: #f7f6f7;
+}
+
+.div5  {
+  display: block;
+}
+
+.t200  {
+  transition: all 0.2s cubic-bezier(0.16,  1,  0.3,  1) 0s;
+}
+
+.btn1 {
+  display: inline-block;
+  background: rgb(91, 89, 224);
+  color: var(--clr-white);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius);
+  border-color: transparent;
+  text-transform: capitalize;
+  font-size: 1rem;
+  letter-spacing: var(--spacing);
+  margin-top: 2rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: var(--clr-primary-1);
+  color: var(--clr-primary-5);
+}
+.p1 {
+  font-size: 1rem;
+  color: hsl(295, 100%, 87%);
+}
+
+.div1 {
+  display: inline-block;
+}
+
+.form label {
+  font-size: 1rem;
+  color: rgb(91, 89, 224);
+  font-weight: bold;
+}
+.form-control {
+  margin: 0.5rem 0;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+}
+
+.form {
+  background: var(--clr-background-2);
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+}
+
+.article {
+  background: var(--clr-white);
+  max-width: var(--fixed-width);
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+}
+
+.form input {
+  background: var(--clr-grey-10);
+  padding: 0.25rem 0.5rem;
+  font-weight: bold;
+}
+
+.div2 {
+  bottom: 0px;
+  top: 50px;
+  display: inline-block;
+  resize: none;
+}

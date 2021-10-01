@@ -1,14 +1,23 @@
 import React from "react";
 
 const OneBar = React.memo((props) => {
-  const { height, width } = props;
+  const { height, width, submit, key } = props;
+  const style = {
+    color: "white",
+    height: height + 50, // this is probably not the best way to do this
+    fontSize: "20pt",
+  };
   return (
-    <>
-      <svg width={width} height={height} className="bar">
-        <rect width={width} height={height}></rect>
+    /* <>
+      <svg width={30} height={height / 2} className={col}>
+        <rect width={30} height={height / 2}></rect>
       </svg>
-      <p className="p1">{height}</p>
+      <p className="p1">{(height - 50) / 100}</p>
     </>
+    */
+    <div id="blue-shadow" key={key} style={style}>
+      {height / 10 - 21}
+    </div>
   );
 });
 

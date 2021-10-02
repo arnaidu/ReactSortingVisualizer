@@ -26,18 +26,6 @@ export const processInputs = (stringArray) => {
   return cleanedArray;
 };
 
-/**
- * Sets the state of the formInput
- * @param {Object} e
- * @param {Object} formInput
- * @param {Function} setFormInput
- */
-export const handleChangeHelper = (e, formInput, setFormInput) => {
-  let name = e.target.name;
-  let value = e.target.value;
-  setFormInput({ ...formInput, [name]: value });
-};
-
 /*
 export const handleSubmitHelper = (
   formInput,

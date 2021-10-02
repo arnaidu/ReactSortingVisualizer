@@ -40,6 +40,7 @@ export const bubbleSortStep = (prevState) => {
   // this means on the current step, we have already finished. So return the object which will result in
   // no state change except tell us that we are done, and reset the timer
   if (!done) {
+    /*
     if (i >= n) {
       return {
         array: array,
@@ -49,7 +50,17 @@ export const bubbleSortStep = (prevState) => {
         timer: timer,
       };
     }
-    if (j >= n - i - 1) {
+    */
+    if (j === n - i - 1) {
+      if (i === n - 1) {
+        return {
+          array: array,
+          i: i,
+          j: j,
+          done: true,
+          timer: timer,
+        };
+      }
       i++;
       j = 0; // set j back to 0
       return {
@@ -110,8 +121,8 @@ export const bubbleSortPrev = (prevState) => {
   }
 
   if (i >= 1 && j === 0) {
-    i = i - 1;
-    j = n - i;
+    i--;
+    j = n - i - 1;
     return {
       array: array,
       i: i,

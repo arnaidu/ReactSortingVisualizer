@@ -1,4 +1,4 @@
-import { stringToArray } from "./formHelper";
+import { stringToArray } from "./formProcessing";
 import React from "react";
 /**
  * Handles all validation for the one form in the application
@@ -77,7 +77,7 @@ export const formError = {
     <p className="input-error">*Missing One or More Fields Above</p>
   ),
   arrayTooLongErrorMessage: (
-    <p classNAme="input-error">
+    <p className="input-error">
       *Array must contain less than or equal to 20 numbers
     </p>
   ),
@@ -124,7 +124,7 @@ export const WarningBanner = (props) => {
   ) {
     return formError.numbersErrorMessage;
   }
-  return <p classNAme="input-error"></p>;
+  return <p className="input-error"></p>;
 };
 
 export const error = {

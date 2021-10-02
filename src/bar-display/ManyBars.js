@@ -7,35 +7,58 @@ const ManyBars = React.memo((props) => {
     // give a yellow shadow for one being checked
     // give green-shadow if done
     if (state.j === index && !state.done) {
+      console.log("Current Bar: ", index);
+      if (state.i === 0 && state.j === 0) {
+        console.log("This bar is white: ", index);
+        console.log(state);
+        return (
+          <div id="white-shadow" key={index} className="bar">
+            <OneBar
+              height={(item + 21) * 10}
+              width={width}
+              submit={submit}
+              stuff={index}
+            />
+          </div>
+        );
+      }
+      console.log("This bar is yellow: ", index);
+      console.log(state);
       return (
         <div id="yellow-shadow" key={index} className="bar">
           <OneBar
             height={(item + 21) * 10}
             width={width}
             submit={submit}
-            key={index}
+            stuff={index}
           />
         </div>
       );
-    } else if (state.i > 0 && index > state.array.length - state.i - 1) {
+    } else if (
+      index >= state.array.length - state.i ||
+      (state.i === state.array.length - 1 && state.j === 0 && state.done) // pretty much the last state when everything is done
+    ) {
+      console.log(state);
+      console.log("This bar is green: ", index);
       return (
         <div id="green-shadow" key={index} className="bar">
           <OneBar
             height={(item + 21) * 10}
             width={width}
             submit={submit}
-            key={index}
+            stuff={index}
           />
         </div>
       );
     } else {
+      console.log("This bar is white: ", index);
       return (
         <div id="white-shadow" key={index} className="bar">
           <OneBar
             height={(item + 21) * 10}
             width={width}
             submit={submit}
-            key={index}
+            stuff={index}
           />
         </div>
       );

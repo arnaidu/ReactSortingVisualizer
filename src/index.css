@@ -105,6 +105,10 @@ option {
 #inputs input {
   margin-bottom: 0px;
 }
+#inputs input::placeholder {
+  font-weight: normal;
+  color: rgb(190, 188, 188);
+}
 #inputs select {
   margin-top: 5px;
 }
@@ -117,6 +121,9 @@ option {
 #inputs input:focus {
   border-color: rgb(91, 236, 255);
   box-shadow: 0px 0px 20px rgb(91, 236, 255);
+}
+#inputs input:focus::placeholder {
+  color: transparent;
 }
 
 #labels {
@@ -242,6 +249,9 @@ div + div {
   font-weight: 200;
   display: inline-block;
   vertical-align: bottom;
+  transition-delay: 20ms;
+  transition-property: left;
+  transition: all 0.2s cubic-bezier(0.16,  1,  0.3,  1);
 }
 
 /* Finished Sorting */

@@ -1,7 +1,7 @@
 import React from "react";
 
 const OneBar = React.memo((props) => {
-  const { height, width, submit, stuff } = props;
+  const { height } = props;
   const style = {
     color: "white",
     height: height + 50, // this is probably not the best way to do this
@@ -15,7 +15,7 @@ const OneBar = React.memo((props) => {
       <p className="p1">{(height - 50) / 100}</p>
     </>
     */
-    <div key={stuff} id="blue-shadow" style={style}>
+    <div id="blue-shadow" style={style}>
       {height / 10 - 21}
     </div>
   );

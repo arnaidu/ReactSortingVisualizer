@@ -25,34 +25,3 @@ export const processInputs = (stringArray) => {
   const cleanedArray = stringArray.replace(/\s+/g, "");
   return cleanedArray;
 };
-
-/*
-export const handleSubmitHelper = (
-  formInput,
-  errorState,
-  properArray,
-  valid,
-  validBounds
-) => {
-  // Can we submit?
-  if (!formInput.submit) {
-    return { ...errorState, errorState: false };
-  } else {
-    var properArray = processInputs(formInput.array);
-    formInput.array = properArray;
-    var valid = validateInput(properArray);
-    if (valid) {
-      var validBounds = checkBounds(properArray);
-    }
-    return {
-      ...errorState,
-      errorState: true,
-      isValidArray: valid,
-      existInputAlgo: formInput.algorithm !== "",
-      existInputArray: formInput.array !== "",
-      lengthArray: properArray <= 39,
-      boundsGood: validBounds,
-    };
-  }
-};
-*/

@@ -89,9 +89,6 @@ h4 {
 select,
 option {
   width: 400px;
-  -ms-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box;
   display: block;
   background: var(--clr-white);
@@ -148,6 +145,10 @@ option {
   display: table-row;
 }
 
+#inputs input {
+  display: inline-block;
+}
+
 #input2 {
   display: table-row;
 }
@@ -157,14 +158,23 @@ label + select {
   margin-left: 8px;
 }
 
-#buttons {
-  display: inline-block;
-  margin-top: 10px;
+.buttons {
   margin-left: 50px;
+  display: inline-block;
+}
+
+.buttons div {
+  float: left;
+  margin-left: auto;
+}
+
+#spacing {
+  margin-top: 10px;
 }
 
 /* Button Aesthetics */
 .pushable {
+  display: block;
   position: relative;
   border: none;
   background: transparent;
@@ -192,7 +202,7 @@ label + select {
 .front {
   display: block;
   position: relative;
-  padding: 12px 42px;
+  padding: 3px 26.5px;
   border-radius: 10px;
   font-size: 1.25rem;
   color: white;
@@ -212,6 +222,7 @@ label + select {
     0 0 82px rgb(91, 236, 255), 0 0 92px rgb(91, 236, 255),
     0 0 102px rgb(91, 236, 255), 0 0 151px rgb(91, 236, 255);
 }
+
 .pushable:active .front {
   transform: translateY(-2px);
   transition: transform 34ms;
@@ -249,9 +260,6 @@ div + div {
   font-weight: 200;
   display: inline-block;
   vertical-align: bottom;
-  transition-delay: 20ms;
-  transition-property: left;
-  transition: all 0.2s cubic-bezier(0.16,  1,  0.3,  1);
 }
 
 /* Finished Sorting */
@@ -285,16 +293,6 @@ Shadows
 }
 
 /* Box Shadows */
-
-#red-shadow {
-  box-shadow: 0 0 5px rgb(255, 91, 91), 0 0 5px rgb(255, 91, 91),
-    0 0 5px rgb(255, 91, 91), 0 0 5px rgb(255, 91, 91), 0 0 5px rgb(255, 91, 91),
-    0 0 5px rgb(255, 91, 91), 0 0 5px rgb(255, 91, 91), 0 0 5px rgb(255, 91, 91);
-}
-
-#white-shadow {
-  box-shadow: 0px 0px 0px #fff, 0px 0px 5px #fff, 0px 0px 5px #fff;
-}
 
 #white-shadow {
   box-shadow: inset 0px 0px 0px #fff, inset 0px 0px 5px #fff,

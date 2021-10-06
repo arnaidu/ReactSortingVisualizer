@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import ManyBars from "./ManyBars";
 import {
   bubbleSortInit,
@@ -7,33 +7,48 @@ import {
 } from "./bubbleSortState";
 import { stringToArray, processInputs } from "./formProcessing";
 import { WarningBanner, error, getErrorState } from "./errorHandling";
-import { handleNext, handlePrev, handleChange } from "./buttonHandlers";
-
+import {
+  handleNext,
+  handlePrev,
+  handleChange,
+  handleSubmit,
+} from "./buttonHandlers";
+import { Title, Finished } from "./title";
+import Bar from "./Bar";
+import Input from "./input";
+import Buttons from "./buttons";
 const buttonNames = {
   pause: "Pause",
   sort: "Sort",
   increment: "Step",
   decrement: "Prev",
+  reset: "Reset",
+  continue: "Continue",
 };
 
 const initString =
   "Max 20 comma separated numbers : -20 \u2264 # \u2264 20 : Ex: 20,-10,3,-5";
 
-const initialFormState = {
+const initialFormInput = {
   array: "",
   algorithm: "",
+};
+
+const initFormState = {
   submit: true, // allow for submitting the first time, then we will change it to prevent multiple submissions
   pause: true,
 };
 
 const initState = {
   array: [],
-  done: false,
+  done: true,
 };
 
 const Sort = () => {
   /* States used for this component */
-  const [formInput, setFormInput] = useState({ ...initialFormState });
+  const [formInput, setFormInput] = useState(initialFormInput);
+
+  const [formState, setFormState] = useState(initFormState);
 
   // const backupFormInput = useRef(initialState);
 
@@ -45,63 +60,34 @@ const Sort = () => {
   // struct for information regarding how the graphic display for visualization should be
   const graphics = {
     state: state,
-    width: window.innerWidth / state.array.length,
-    maxHeight: window.innerHeight / 2,
-    submit: formInput.submit,
+    // width: window.innerWidth / state.array.length,
+    //submit: formInput.submit,
   };
 
-  const handleSubmit = (e) => {
-    // if there is only a single element, then we can just render a quick return, might as well, then we can do the stuff below
-    // if there is greater than 1 (2 or more elements in array)
-
-    e.preventDefault();
-    // Case where we are during sorting and can't resubmit the form (i.e. not paused)
-    if (!formInput.submit) {
-      return false;
-    }
-
-    console.log("Pause is True");
-    var properArray = processInputs(formInput.array);
-    formInput.array = properArray;
-    const es = getErrorState(formInput, errorState, properArray);
-    setErrorState(es);
-    // if no error then proceed
-    if (!es.errorState) {
-      console.log("In valid part no error");
-      const numArray = stringToArray(properArray);
-      formInput.array = properArray;
-      //setFormInput({ ...backupFormInput.current, submit: false, pause: false });
-      console.log(formInput);
-      console.log(state);
-      formInput.submit = false;
-      formInput.pause = false;
-      state.array = numArray;
-      setState({
-        ...bubbleSortInit(state.array),
-        timer: setInterval(() => {
-          console.log("setting interval if");
-          handleTimer(e);
-        }, 250),
-      });
-    }
+  const handleSubmitWrapper = (e) => {
+    handleSubmit(
+      e,
+      formState,
+      formInput,
+      errorState,
+      state,
+      setState,
+      setErrorState
+    );
   };
 
-  const handleTimer = (e) => {
-    console.log("Pause in timer: ", formInput);
-    //  maybe put if statement out here -- get rid of else because we never reach it
-
+  const handleTimer = () => {
     setState((prevState) => {
-      console.log("prevstate: ", prevState);
       let nextState;
 
       nextState = bubbleSortStep(prevState);
-
-      console.log("nextstate: ", nextState);
-      console.log("one step has been computed");
       if (nextState.done) {
-        console.log("should be finished");
-        clearInterval(prevState.timer); // we add the timer, so no need to worry about warning -- but can get rid or warning if want
-        setFormInput((prevState) => {
+        clearInterval(prevState.timer);
+        /*setFormInput((prevState) => {
+          return { ...prevState, submit: true, pause: true };
+        });
+        */
+        setFormState((prevState) => {
           return { ...prevState, submit: true, pause: true };
         });
       }
@@ -111,39 +97,97 @@ const Sort = () => {
 
   // wrapper function for handling the change in the form
   const handleChangeWrapper = (e) => {
-    handleChange(e, formInput, setFormInput);
+    handleChange(e, setFormInput);
   };
 
   const handlePause = (e) => {
     e.preventDefault();
-    console.log("clicked pause", formInput.pause, state);
-    let name = e.target.name;
-    let value = e.target.value;
+    //let name = e.target.name;
+    //let value = e.target.value;
     clearInterval(state.timer);
-    console.log(state);
 
-    setFormInput((prevState) => {
-      return { ...prevState, [name]: value, submit: true, pause: true };
+    /*setFormInput((prevState) => {
+      return { ...prevState, [name]: value, submit: false, pause: true };
+    });*/
+    setFormState((prevState) => {
+      return { ...prevState, submit: false, pause: true };
+    });
+  };
+
+  const handleContinue = (e) => {
+    e.preventDefault();
+    /*setFormInput((prevState) => {
+      return { ...prevState, submit: false, pause: false };
+    });
+    */
+    setFormState((prevState) => {
+      return { ...prevState, submit: false, pause: false };
+    });
+    setState({
+      ...state,
+      timer: setInterval(() => {
+        handleTimer(e);
+      }, 250),
+    });
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    /*
+    setFormInput(() => {
+      return initialFormInput;
+    });
+    */
+    setFormState(() => {
+      return initFormState;
+    });
+    setState((prevState) => {
+      clearInterval(prevState.timer);
+      return initState;
     });
   };
 
   const handleNextWrapper = (e) => {
-    handleNext(e, formInput, state, errorState, setErrorState, setState);
+    handleNext(
+      e,
+      formInput,
+      state,
+      errorState,
+      setErrorState,
+      setState,
+      setFormState
+    );
   };
 
   const handlePrevWrapper = (e) => {
-    handlePrev(e, state, setState);
+    handlePrev(e, state, setState, formState, setFormState);
+  };
+
+  const buttonInputs = {
+    handleSubmit: handleSubmitWrapper,
+    handleReset: handleReset,
+    handleContinue: handleContinue,
+    handlePause: handlePause,
+    handleNextWrapper: handleNextWrapper,
+    handlePrevWrapper: handlePrevWrapper,
   };
 
   return (
     <>
       <section className="nav-bar">
-        <div className="logo">Sorting Visualizer</div>
+        <Title />
+        <Input
+          errorState={errorState}
+          handleChangeWrapper={handleChangeWrapper}
+          formInput={formInput}
+        />
+        {/*
         <form id="inputs" autoComplete="off">
           <div id="input1">
             <label htmlFor="array" id="labels">
               Array:{" "}
             </label>
+            {
             <input
               type="text"
               id="array"
@@ -151,8 +195,14 @@ const Sort = () => {
               value={formInput.array}
               placeholder={initString}
               onChange={handleChangeWrapper}
+            />}
+            <Input
+              setForm={setFormInput}
+              handleChangeWrapper={handleChangeWrapper}
+              formInput={formInput}
+              errorState={errorState}
             />
-            <WarningBanner {...errorState} type="array" />
+            <WarningBanner {...errorState} type="array" key="3" />
           </div>
 
           <div id="input2">
@@ -163,48 +213,79 @@ const Sort = () => {
             <select
               name="algorithm"
               id="algorithm"
+              value={formInput.algorithm}
               onChange={handleChangeWrapper}
             >
               <option value="" style={{ display: "none" }}></option>
               <option value="BubbleSort">Bubble Sort</option>
             </select>
-            <WarningBanner {...errorState} type="missing-field" />
+            <WarningBanner {...errorState} type="missing-field" key="4" />
           </div>
         </form>
-        <div id="buttons">
-          <button
-            className="pushable"
-            //disabled={formInput.submit ? "" : true}
-            onClick={handlePrevWrapper}
-          >
-            <span className="edge"></span>
-            <span className="front">{buttonNames.decrement}</span>
-          </button>
-          {formInput.pause ? (
-            <button className="pushable" onClick={handleSubmit}>
+        */}
+        {/*}
+        <div className="buttons">
+          <div>
+            <button
+              className="pushable"
+              //disabled={formInput.submit ? "" : true}
+              onClick={handlePrevWrapper}
+            >
               <span className="edge"></span>
-              <span className="front">{buttonNames.sort}</span>
+              <span className="front">{buttonNames.decrement}</span>
             </button>
-          ) : (
-            <button className="pushable" onClick={handlePause}>
+          </div>
+          <div>
+            {formInput.submit ? (
+              <button className="pushable" onClick={handleSubmit}>
+                <span className="edge"></span>
+                <span className="front">{buttonNames.sort}</span>
+              </button>
+            ) : (
+              <button className="pushable" onClick={handleReset}>
+                <span className="edge"></span>
+                <span className="front">{buttonNames.reset}</span>
+              </button>
+            )}
+            {formInput.pause ? (
+              <div id="spacing">
+                <button className="pushable" onClick={handleContinue}>
+                  <span className="edge"></span>
+                  <span className="front">{buttonNames.continue}</span>
+                </button>
+              </div>
+            ) : (
+              <div id="spacing">
+                <button className="pushable" onClick={handlePause}>
+                  <span className="edge"></span>
+                  <span className="front">{buttonNames.pause}</span>
+                </button>
+              </div>
+            )}
+          </div>
+          <div>
+            <button
+              className="pushable"
+              //disabled={formInput.submit ? "" : true}
+              onClick={handleNextWrapper}
+            >
               <span className="edge"></span>
-              <span className="front">{buttonNames.pause}</span>
+              <span className="front">{buttonNames.increment}</span>
             </button>
-          )}
-          <button
-            className="pushable"
-            //disabled={formInput.submit ? "" : true}
-            onClick={handleNextWrapper}
-          >
-            <span className="edge"></span>
-            <span className="front">{buttonNames.increment}</span>
-          </button>
+          </div>
         </div>
+            */}
+        <Buttons {...buttonInputs} formState={formState} key="buttons" />
       </section>
-      {state.done && <div id="finished">Finished Sorting</div>}
+      {state.done && state.array.length > 0 && (
+        <Finished /> //<div id="finished">Finished Sorting</div>
+      )}
+      <Bar errorState={errorState} graphics={graphics} />
+      {/*
       <section className="bars">
         {!errorState.errorState && <ManyBars {...graphics} />}
       </section>
+      */}
     </>
   );
 };

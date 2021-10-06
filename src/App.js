@@ -4,7 +4,7 @@ import Sort from "./bar-display/Sort";
 function App() {
   return (
     <div>
-      <Sort />
+      <Sort key="1" />
     </div>
   );
 }

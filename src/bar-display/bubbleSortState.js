@@ -33,7 +33,7 @@ def bubble_sort(arr):
  */
 export const bubbleSortStep = (prevState) => {
   let { array, i, j, done, timer } = prevState;
-  console.log("in bubbleSortStep");
+  // console.log("in bubbleSortStep");
 
   const n = array.length;
 

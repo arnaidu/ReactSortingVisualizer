@@ -1,60 +1,32 @@
 /**
  *
- * @param {number[]} arr
+ * @param {number[]} data
  * @returns initial state used for bubble sort visualizer
  */
-export const bubbleSortInit = (arr) => {
+export const bubbleSortInit = (data) => {
   return {
-    array: arr,
+    data: data,
     i: 0,
     j: 0,
     done: false,
   };
 };
 
-// Index of the bars which are being swapped
-export const barsSwapped = {
-  firstBar: 0,
-  secondBar: 0,
-};
-
-/* Use the python implementation to help make the function for this
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n):
-        for j in range(n - i - 1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
- */
 /**
  *
  * @param {state} prevState
  * @returns next step in the bubble sort algorithm
  */
-export const bubbleSortStep = (prevState) => {
-  let { array, i, j, done, timer } = prevState;
-  // console.log("in bubbleSortStep");
-
-  const n = array.length;
+export const bubbleSortStep = ({ data, i, j, done, timer }) => {
+  const n = data.length;
 
   // this means on the current step, we have already finished. So return the object which will result in
   // no state change except tell us that we are done, and reset the timer
   if (!done) {
-    /*
-    if (i >= n) {
-      return {
-        array: array,
-        i: i,
-        j: j,
-        done: true,
-        timer: timer,
-      };
-    }
-    */
     if (j === n - i - 1) {
       if (i === n - 1) {
         return {
-          array: array,
+          data: data,
           i: i,
           j: j,
           done: true,
@@ -64,7 +36,7 @@ export const bubbleSortStep = (prevState) => {
       i++;
       j = 0; // set j back to 0
       return {
-        array: array,
+        data: data,
         i: i,
         j: j,
         done: false,
@@ -72,17 +44,17 @@ export const bubbleSortStep = (prevState) => {
       };
     }
 
-    if (array[j] > array[j + 1]) {
-      let element = array[j];
-      array[j] = array[j + 1];
-      array[j + 1] = element;
+    if (data[j].value > data[j + 1].value) {
+      let element = data[j].value;
+      data[j].value = data[j + 1].value;
+      data[j + 1].value = element;
     }
     // if j on the next step will be >= n - i - 1, then this current state thing is the last state to send
-    // i.e. the state.array from this function output, will be the last array output for the j cycle
+    // i.e. the state.data from this function output, will be the last data output for the j cycle
     j = j + 1;
 
     return {
-      array: array,
+      data: data,
       i: i,
       j: j,
       done: false,
@@ -91,7 +63,7 @@ export const bubbleSortStep = (prevState) => {
   }
   // this should return the same thing
   return {
-    array: array,
+    data: data,
     i: i,
     j: j,
     done: done,
@@ -105,14 +77,12 @@ export const bubbleSortStep = (prevState) => {
  * @param {state} prevState
  * @returns nextState: the previous state or the same state (i.e. init state if still at the initial state)
  */
-export const bubbleSortPrev = (prevState) => {
-  let { array, i, j, done, timer } = prevState;
-
-  const n = array.length;
+export const bubbleSortPrev = ({ data, i, j, done, timer }) => {
+  const n = data.length;
 
   if (i === 0 && j === 0) {
     return {
-      array: array,
+      data: data,
       i: i,
       j: j,
       done: false,
@@ -124,7 +94,7 @@ export const bubbleSortPrev = (prevState) => {
     i--;
     j = n - i - 1;
     return {
-      array: array,
+      data: data,
       i: i,
       j: j,
       done: false,
@@ -133,15 +103,15 @@ export const bubbleSortPrev = (prevState) => {
   }
   // might need to consider i >= n and done condition
 
-  if (array[j] > array[j - 1]) {
-    let element = array[j];
-    array[j] = array[j - 1];
-    array[j - 1] = element;
+  if (data[j].value > data[j - 1].value) {
+    let element = data[j].value;
+    data[j].value = data[j - 1].value;
+    data[j - 1].value = element;
   }
 
   j = j - 1;
   return {
-    array: array,
+    data: data,
     i: i,
     j: j,
     done: false,

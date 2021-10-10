@@ -2,13 +2,13 @@
  * Convert a string containing numbers separated by commas to an array of inetegers
  * Input should be number,number,...,number
  * @param {string} stringArray
- * @returns Integer array form of stringArray
+ * @returns Array of objects with value (from stringArray) and id (for unique key)
  */
-export const stringToArray = (stringArray) => {
-  let array = stringArray.split(",").map((item) => {
-    return parseInt(item, 10);
+export const stringToData = (stringArray) => {
+  let data = stringArray.split(",").map((item, index) => {
+    return { id: index, value: parseInt(item, 10) };
   });
-  return array;
+  return data;
 };
 
 /**

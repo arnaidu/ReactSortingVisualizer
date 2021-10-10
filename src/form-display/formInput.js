@@ -1,14 +1,9 @@
 import React from "react";
-import { useState } from "react";
-import { WarningBanner } from "./errorHandling";
+import { ErrorBanner } from "./errorHandling";
 
-const initialFormState = {
-  array: "",
-  algorithm: "",
-};
 const initString =
   "Max 20 comma separated numbers : -20 \u2264 # \u2264 20 : Ex: 20,-10,3,-5";
-const Input = ({ errorState, handleChangeWrapper, formInput }) => {
+const Inputs = ({ errorState, handleChangeWrapper, formInput }) => {
   /*
   const [formInputComp, setFormInputComp] = useState(initialFormState);
 
@@ -26,7 +21,9 @@ const Input = ({ errorState, handleChangeWrapper, formInput }) => {
   */
   return (
     <form id="inputs" autoComplete="off">
-      <div id="input1">
+      {console.log("Rendering Inputs of Form")}
+
+      <div className="row">
         <label htmlFor="array" id="labels">
           Array:{" "}
         </label>
@@ -38,10 +35,10 @@ const Input = ({ errorState, handleChangeWrapper, formInput }) => {
           placeholder={initString}
           onChange={handleChangeWrapper}
         />
-        <WarningBanner {...errorState} type="array" key="3" />
+        <ErrorBanner {...errorState} type="array" key="warning1" />
       </div>
 
-      <div id="input2">
+      <div className="row">
         <label htmlFor="algorithm" id="labels">
           {" "}
           Algorithm:{" "}
@@ -55,10 +52,10 @@ const Input = ({ errorState, handleChangeWrapper, formInput }) => {
           <option value="" style={{ display: "none" }}></option>
           <option value="BubbleSort">Bubble Sort</option>
         </select>
-        <WarningBanner {...errorState} type="missing-field" key="4" />
+        <ErrorBanner {...errorState} type="missing-field" key="warning2" />
       </div>
     </form>
   );
 };
 
-export default Input;
+export default Inputs;

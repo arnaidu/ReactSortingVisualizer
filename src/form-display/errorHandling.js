@@ -1,4 +1,4 @@
-import { stringToArray } from "./formProcessing";
+import { stringToData } from "./formProcessing";
 import React from "react";
 /**
  * Handles all validation for the one form in the application
@@ -23,7 +23,7 @@ export const validateInput = (stringArray) => {
 };
 
 const checkInputBounds = (stringArray) => {
-  const numArray = stringToArray(stringArray);
+  const numArray = stringToData(stringArray);
   if (Math.min(...numArray) < -20 || Math.max(...numArray) > 20) {
     return false;
   }
@@ -71,7 +71,9 @@ export const getErrorState = (formInput, errorState, properArray) => {
 /* Below is the error object (i.e. it will contain all error messages for the form) */
 export const formError = {
   notValidArrayErrorMessage: (
-    <p className="input-error">*Incorrect Input Format: Try ex: 5,4,3,2,1</p>
+    <p className="input-error">
+      *Incorrect Input Format or Character: Try ex: 5,4,10,-1,-3,2,1
+    </p>
   ),
   missingFieldErrorMessage: (
     <p className="input-error">*Missing One or More Fields Above</p>
@@ -86,7 +88,7 @@ export const formError = {
   ),
 };
 
-export const WarningBanner = (props) => {
+export const ErrorBanner = (props) => {
   let {
     isValidArray,
     existInputArray,

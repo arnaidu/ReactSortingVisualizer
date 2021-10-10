@@ -21,14 +21,27 @@ const Buttons = React.memo(
   }) => {
     return (
       <div className="buttons">
+        {console.log("Rendering Buttons of Form")}
         <div>
           <button
-            className="pushable"
-            //disabled={formInput.submit ? "" : true}
+            className={
+              formState.pause && !formState.submit
+                ? "pushable"
+                : "pushable-disabled"
+            }
+            disabled={formState.pause && !formState.submit ? "" : true}
             onClick={handlePrevWrapper}
           >
             <span className="edge"></span>
-            <span className="front">{buttonNames.decrement}</span>
+            <span
+              className={
+                formState.pause && !formState.submit
+                  ? "front"
+                  : "front-disabled"
+              }
+            >
+              {buttonNames.decrement}
+            </span>
           </button>
         </div>
         <div>
@@ -45,9 +58,15 @@ const Buttons = React.memo(
           )}
           {formState.pause ? (
             <div id="spacing">
-              <button className="pushable" onClick={handleContinue}>
+              <button
+                className={formState.submit ? "pushable-disabled" : "pushable"}
+                disabled={formState.submit ? true : ""}
+                onClick={handleContinue}
+              >
                 <span className="edge"></span>
-                <span className="front">{buttonNames.continue}</span>
+                <span className={formState.submit ? "front-disabled" : "front"}>
+                  {buttonNames.continue}
+                </span>
               </button>
             </div>
           ) : (
@@ -61,12 +80,24 @@ const Buttons = React.memo(
         </div>
         <div>
           <button
-            className="pushable"
-            //disabled={formInput.submit ? "" : true}
+            className={
+              formState.pause && !formState.submit
+                ? "pushable"
+                : "pushable-disabled"
+            }
+            disabled={formState.pause && !formState.submit ? "" : true}
             onClick={handleNextWrapper}
           >
             <span className="edge"></span>
-            <span className="front">{buttonNames.increment}</span>
+            <span
+              className={
+                formState.pause && !formState.submit
+                  ? "front"
+                  : "front-disabled"
+              }
+            >
+              {buttonNames.increment}
+            </span>
           </button>
         </div>
       </div>

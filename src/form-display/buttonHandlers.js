@@ -1,10 +1,42 @@
-import { processInputs, stringToArray } from "./formProcessing";
+import { processInputs, stringToData } from "./formProcessing";
 import { getErrorState } from "./errorHandling";
 import {
   bubbleSortInit,
   bubbleSortStep,
   bubbleSortPrev,
-} from "./bubbleSortState";
+} from "../bar-display/bubbleSortState";
+
+const initFormState = {
+  submit: true, // allow for submitting the first time, then we will change it to prevent multiple submissions
+  pause: true,
+};
+
+const initState = {
+  data: [],
+  done: true,
+  timer: 0,
+};
+
+const handleTimer = (state, setState, setFormState) => {
+  var storedNextState = state;
+  setState((prevState) => {
+    let nextState;
+    nextState = bubbleSortStep(prevState);
+    storedNextState = nextState; // keep track of nextstate outside since we remove the timer -- there might be better way to do this with hooks
+    if (nextState.done) {
+      clearInterval(prevState.timer);
+    }
+    return nextState;
+  });
+
+  setFormState((prevState) => {
+    return {
+      ...prevState,
+      submit: storedNextState.done,
+      pause: storedNextState.done,
+    };
+  });
+};
 
 export const handleNext = (
   e,
@@ -16,13 +48,13 @@ export const handleNext = (
   setFormState
 ) => {
   e.preventDefault();
-  if (state.array.length === 0) {
+  if (state.data.length === 0) {
     var properArray = processInputs(formInput.array);
     var es = getErrorState(formInput, errorState, properArray);
     setErrorState(es);
     if (!es.errorState) {
       formInput.array = properArray;
-      const numArray = stringToArray(properArray);
+      const numArray = stringToData(properArray);
       setFormState((prevState) => {
         return { ...prevState, submit: false };
       });
@@ -46,7 +78,7 @@ export const handlePrev = (e, state, setState, formState, setFormState) => {
       return { ...prevState, submit: false };
     });
   }
-  if (state.array.length > 0) {
+  if (state.data.length > 0) {
     setState((prevState) => {
       let nextState = bubbleSortPrev(prevState);
       return nextState;
@@ -75,17 +107,13 @@ export const handleSubmit = (
   e,
   formState,
   formInput,
+  setFormState,
   errorState,
   state,
   setState,
   setErrorState
 ) => {
   e.preventDefault();
-  // Case where we are during sorting and can't resubmit the form (i.e. not paused)
-  /*if (!formInput.submit) {
-      return false;
-    }
-    */
   if (!formState.submit) {
     return false;
   }
@@ -96,80 +124,55 @@ export const handleSubmit = (
   setErrorState(es);
   // if no error then proceed
   if (!es.errorState) {
-    const numArray = stringToArray(properArray);
-    formInput.array = properArray;
-
-    //formInput.submit = false;
-    //formInput.pause = false;
+    const data = stringToData(properArray);
     formState.submit = false;
     formState.pause = false;
-    state.array = numArray;
+    state.data = data;
     state.done = false;
     setState({
-      ...bubbleSortInit(state.array),
+      ...bubbleSortInit(state.data),
       timer: setInterval(() => {
-        handleTimer();
+        handleTimer(state, setState, setFormState);
       }, 250),
     });
   }
 };
 
-export const handleTimer = (setState, setFormInput) => {
-  setState((prevState) => {
-    let nextState;
-    nextState = bubbleSortStep(prevState);
-    if (nextState.done) {
-      clearInterval(prevState.timer); // we add the timer, so no need to worry about warning -- but can get rid or warning if want
-      setFormInput((prevState) => {
-        return { ...prevState, submit: true, pause: true };
-      });
-    }
-    return nextState;
-  });
-};
-
-export const handleReset = (e) => {
+export const handleReset = (e, setFormState, setState) => {
   e.preventDefault();
-  /*
-    setFormInput(() => {
-      return initialFormInput;
-    });
-    */
-  setFormState(() => {
-    return initFormState;
-  });
+  setFormState({ ...initFormState });
   setState((prevState) => {
     clearInterval(prevState.timer);
-    return initState;
+    return { ...initState };
   });
 };
 
-export const handleContinue = (e) => {
+export const handleContinue = (e, state, setFormState, setState) => {
   e.preventDefault();
-  /*setFormInput((prevState) => {
-      return { ...prevState, submit: false, pause: false };
-    });
-    */
   setFormState((prevState) => {
     return { ...prevState, submit: false, pause: false };
   });
+  /*
   setState({
     ...state,
     timer: setInterval(() => {
-      handleTimer(e);
+      handleTimer(setState, setFormState);
     }, 250),
+  });
+  */
+  setState((prevState) => {
+    return {
+      ...prevState,
+      timer: setInterval(() => {
+        handleTimer(state, setState, setFormState);
+      }, 250),
+    };
   });
 };
 
-export const handlePause = (e) => {
+export const handlePause = (e, timer, setFormState) => {
   e.preventDefault();
-  //let name = e.target.name;
-  //let value = e.target.value;
-  clearInterval(state.timer);
-
-  /*setFormInput((prevState) => {
-      return { ...prevState, [name]: value, submit: false, pause: true };
-    });*/
+  clearInterval(timer);
   setFormState((prevState) => {
     return { ...prevState, submit: false, pause: true };
   });

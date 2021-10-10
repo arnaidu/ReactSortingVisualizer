@@ -40,7 +40,9 @@ const App = () => {
       >
         <Finished key="Finished" />
       </div>
-      <ManyBars state={state} key="ManyBars" />
+      <div className="elements">
+        <ManyBars state={state} key="ManyBars" />
+      </div>
     </div>
   );
 };

@@ -120,7 +120,7 @@ export const handleSubmit = (
 
   var properArray = processInputs(formInput.array);
   formInput.array = properArray;
-  const es = getErrorState(formInput, errorState, properArray);
+  var es = getErrorState(formInput, errorState, properArray);
   setErrorState(es);
   // if no error then proceed
   if (!es.errorState) {

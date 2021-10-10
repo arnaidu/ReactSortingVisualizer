@@ -1,11 +1,11 @@
-import { stringToData } from "./formProcessing";
+import { stringToData } from "../form-display/formProcessing";
 import React from "react";
 /**
  * Handles all validation for the one form in the application
  * @param {string} stringArray
  * @returns boolean indicating whether valid input or not
  */
-export const validateInput = (stringArray) => {
+export const validateInputStructure = (stringArray) => {
   //
   if (stringArray.match(/[^-?\d+\s,]/)) {
     return false;
@@ -24,7 +24,20 @@ export const validateInput = (stringArray) => {
 
 const checkInputBounds = (stringArray) => {
   const numArray = stringToData(stringArray);
-  if (Math.min(...numArray) < -20 || Math.max(...numArray) > 20) {
+  if (
+    Math.min.apply(
+      Math,
+      numArray.map((ele) => {
+        return ele.value;
+      })
+    ) < -20 ||
+    Math.max.apply(
+      Math,
+      numArray.map((ele) => {
+        return ele.value;
+      })
+    ) > 20
+  ) {
     return false;
   }
   return true;
@@ -41,7 +54,7 @@ const checkInputBounds = (stringArray) => {
 export const getErrorState = (formInput, errorState, properArray) => {
   // Can we submit?
 
-  var isValid = validateInput(properArray);
+  var isValid = validateInputStructure(properArray);
   var validBounds;
   if (isValid) {
     validBounds = checkInputBounds(properArray);
@@ -52,7 +65,6 @@ export const getErrorState = (formInput, errorState, properArray) => {
   const existInputArray = formInput.array !== "";
   const properLengthArray = properArray.length <= 39;
   return {
-    ...errorState,
     isValidArray: isValid,
     existInputAlgo: existInputAlgo,
     existInputArray: existInputArray,

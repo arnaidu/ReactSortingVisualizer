@@ -43,6 +43,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: auto;
+  height: auto;
 }
 
 code {
@@ -272,18 +273,19 @@ div + div {
 }
 
 .elements {
-  position: relative;
+  display: flex;
+  margin: 0 auto;
 }
 
 .bars {
   text-align: center;
   display: block;
   margin: 0 auto; /* top right bottom left */
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
   min-width: 100%;
   width: 100%;
-  background-color: #fff;
-  height: auto;
-  min-height: 100%;
 }
 
 .bar {

@@ -3,7 +3,7 @@ import React from "react";
 export const Title = React.memo(() => {
   return (
     <div className="logo" key="logo">
-      {console.log("Rendering Title of Form")}
+      {/*console.log("Rendering Title of Form")*/}
       Sorting Visualizer
     </div>
   );

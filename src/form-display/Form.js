@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { error } from "./errorHandling";
 import Inputs from "./formInput";
 import Buttons from "./formButtons";
@@ -86,7 +86,7 @@ const Form = ({ state, setState }) => {
 
   return (
     <section className="nav-bar">
-      {console.log("Rendering Form")}
+      {/*console.log("Rendering Form")*/}
       <Title key="Title" />
       <Inputs
         errorState={errorState}

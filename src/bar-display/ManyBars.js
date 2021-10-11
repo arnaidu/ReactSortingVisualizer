@@ -51,7 +51,7 @@ const ManyBars = React.memo(({ state }) => {
   return (
     <>
       <section className="bars" key="bars">
-        {console.log("Rendering ManyBars")}
+        {/*console.log("Rendering ManyBars")*/}
         {state.data.length !== 0 && allBars}
       </section>
     </>

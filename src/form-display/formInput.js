@@ -21,7 +21,7 @@ const Inputs = ({ errorState, handleChangeWrapper, formInput }) => {
   */
   return (
     <form id="inputs" autoComplete="off">
-      {console.log("Rendering Inputs of Form")}
+      {/*console.log("Rendering Inputs of Form")*/}
 
       <div className="row">
         <label htmlFor="array" id="labels">

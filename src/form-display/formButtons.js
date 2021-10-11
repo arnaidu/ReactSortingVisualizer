@@ -21,7 +21,7 @@ const Buttons = React.memo(
   }) => {
     return (
       <div className="buttons">
-        {console.log("Rendering Buttons of Form")}
+        {/*console.log("Rendering Buttons of Form")*/}
         <div>
           <button
             className={

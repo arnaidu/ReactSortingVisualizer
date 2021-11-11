@@ -1,5 +1,6 @@
 import { stringToData } from "../form-display/formProcessing";
 import React from "react";
+
 /**
  * Handles all validation for the one form in the application
  * @param {string} stringArray
@@ -22,6 +23,12 @@ export const validateInputStructure = (stringArray) => {
   return true;
 };
 
+/**
+ * Checks whether input contain valid numbers (We only support from -20 to 20 inclusive)
+ *
+ * @param {string} stringArray
+ * @returns boolean indicating whether input array contains only valid numbers (true for valid, false for invalid)
+ */
 const checkInputBounds = (stringArray) => {
   const numArray = stringToData(stringArray);
   if (
@@ -100,6 +107,12 @@ export const formError = {
   ),
 };
 
+/**
+ * Returns the html to be used for the error message
+ *
+ * @param {Object} props error state object
+ * @returns the html to be used as the error message depending on error state
+ */
 export const ErrorBanner = (props) => {
   let {
     isValidArray,

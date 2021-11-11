@@ -1,24 +1,12 @@
 import React from "react";
 import { ErrorBanner } from "./errorHandling";
 
+/* Default message for array form input */
 const initString =
   "Max 20 comma separated numbers : -20 \u2264 # \u2264 20 : Ex: 20,-10,3,-5";
-const Inputs = ({ errorState, handleChangeWrapper, formInput }) => {
-  /*
-  const [formInputComp, setFormInputComp] = useState(initialFormState);
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    let name = e.target.name;
-    let value = e.target.value;
-    setFormInputComp((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-    setForm((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-  };
-  */
+/* React Component for the form and error display */
+const Inputs = ({ errorState, handleChangeWrapper, formInput }) => {
   return (
     <form id="inputs" autoComplete="off">
       {/*console.log("Rendering Inputs of Form")*/}

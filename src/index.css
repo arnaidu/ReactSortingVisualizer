@@ -281,7 +281,6 @@ div + div {
   text-align: center;
   display: block;
   margin: 0 auto; /* top right bottom left */
-  background-color: #fff;
   position: absolute;
   bottom: 0;
   min-width: 100%;

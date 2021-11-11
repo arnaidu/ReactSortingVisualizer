@@ -1,4 +1,5 @@
 /**
+ * Initializes the state for using bubble sort (gives the 0-th iteration)
  *
  * @param {number[]} data
  * @returns initial state used for bubble sort visualizer
@@ -13,9 +14,11 @@ export const bubbleSortInit = (data) => {
 };
 
 /**
+ * Go to next step in sorting process.
+ * If we are end, then do nothing.
  *
- * @param {state} prevState
- * @returns next step in the bubble sort algorithm
+ * @param {state} currState // this is destructured in input
+ * @returns next state in the bubble sort algorithm or same state if we are at end
  */
 export const bubbleSortStep = ({ data, i, j, done, timer }) => {
   const n = data.length;
@@ -61,7 +64,7 @@ export const bubbleSortStep = ({ data, i, j, done, timer }) => {
       timer: timer,
     };
   }
-  // this should return the same thing
+  // this should return the same thing since we are done
   return {
     data: data,
     i: i,
@@ -72,10 +75,10 @@ export const bubbleSortStep = ({ data, i, j, done, timer }) => {
 };
 
 /**
- * Previous state of sorting (which is technically the current state).
- * Does nothing if we are at beginning. Otherwise, go to the previous step.
- * @param {state} prevState
- * @returns nextState: the previous state or the same state (i.e. init state if still at the initial state)
+ * Go back to the previous state of sorting.
+ * Does nothing if we are at beginning.
+ * @param {state} currState // this is destructured in input
+ * @returns the previous state or the same state if the current state is initial state
  */
 export const bubbleSortPrev = ({ data, i, j, done, timer }) => {
   const n = data.length;

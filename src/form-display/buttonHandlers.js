@@ -6,23 +6,34 @@ import {
   bubbleSortPrev,
 } from "../bar-display/bubbleSortState";
 
+/* Initial Form State */
 const initFormState = {
-  submit: true, // allow for submitting the first time, then we will change it to prevent multiple submissions
+  submit: true,
   pause: true,
 };
 
+/* Initial Array State */
 const initState = {
   data: [],
   done: true,
   timer: 0,
 };
 
+/**
+ * Handles the automatic sorting logic, returning the next iteration of sorting process
+ * while updating the formState (i.e. the pause and the submit values for when we are done)
+ * as well as the state data.
+ *
+ * @param {Object} state
+ * @param {Function} setState
+ * @param {Function} setFormState
+ */
 const handleTimer = (state, setState, setFormState) => {
   var storedNextState = state;
   setState((prevState) => {
     let nextState;
     nextState = bubbleSortStep(prevState);
-    storedNextState = nextState; // keep track of nextstate outside since we remove the timer -- there might be better way to do this with hooks
+    storedNextState = nextState;
     if (nextState.done) {
       clearInterval(prevState.timer);
     }
@@ -38,6 +49,17 @@ const handleTimer = (state, setState, setFormState) => {
   });
 };
 
+/**
+ * Handles the ability to increment to next step in sorting process only after we have paused.
+ *
+ * @param {Object} e
+ * @param {Object} formInput
+ * @param {Object} state
+ * @param {Object} errorState
+ * @param {Function} setErrorState
+ * @param {Function} setState
+ * @param {Function} setFormState
+ */
 export const handleNext = (
   e,
   formInput,
@@ -71,6 +93,16 @@ export const handleNext = (
   }
 };
 
+/**
+ * Handles the ability to go to previous step in sorting process only after we have paused.
+ *
+ * @param {Object} e
+ * @param {Object} state
+ * @param {Function} setState
+ * @param {Object} formState
+ * @param {Function} setFormState
+ * @returns
+ */
 export const handlePrev = (e, state, setState, formState, setFormState) => {
   e.preventDefault();
   if (formState.pause) {
@@ -89,7 +121,8 @@ export const handlePrev = (e, state, setState, formState, setFormState) => {
 };
 
 /**
- * Sets the state of the formInput
+ * Sets the state of the formInput as we fill in the fields
+ *
  * @param {Object} e
  * @param {Object} formInput
  * @param {Function} setFormInput
@@ -103,6 +136,20 @@ export const handleChange = (e, setFormInput) => {
   });
 };
 
+/**
+ * Handles the functionality for when we submit the form inputs,
+ * also taking care of error checking.
+ *
+ * @param {Object} e
+ * @param {Object} formState
+ * @param {Object} formInput
+ * @param {Function} setFormState
+ * @param {Object} errorState
+ * @param {Object} state
+ * @param {Function} setState
+ * @param {Function} setErrorState
+ * @returns
+ */
 export const handleSubmit = (
   e,
   formState,
@@ -133,11 +180,18 @@ export const handleSubmit = (
       ...bubbleSortInit(state.data),
       timer: setInterval(() => {
         handleTimer(state, setState, setFormState);
-      }, 250),
+      }, 200),
     });
   }
 };
 
+/**
+ * Resets back to original state, removing the bar-display.
+ *
+ * @param {Object} e
+ * @param {Function} setFormState
+ * @param {Function} setState
+ */
 export const handleReset = (e, setFormState, setState) => {
   e.preventDefault();
   setFormState({ ...initFormState });
@@ -147,29 +201,37 @@ export const handleReset = (e, setFormState, setState) => {
   });
 };
 
+/**
+ * Handles the functionality for resuming sorting, after we have paused or incremented
+ * ourselves with Prev or Next buttons
+ *
+ * @param {Object} e
+ * @param {Object} state
+ * @param {Function} setFormState
+ * @param {Function} setState
+ */
 export const handleContinue = (e, state, setFormState, setState) => {
   e.preventDefault();
   setFormState((prevState) => {
     return { ...prevState, submit: false, pause: false };
   });
-  /*
-  setState({
-    ...state,
-    timer: setInterval(() => {
-      handleTimer(setState, setFormState);
-    }, 250),
-  });
-  */
   setState((prevState) => {
     return {
       ...prevState,
       timer: setInterval(() => {
         handleTimer(state, setState, setFormState);
-      }, 250),
+      }, 200),
     };
   });
 };
 
+/**
+ * Handles the pause functionality of sorting visualizer
+ *
+ * @param {Object} e
+ * @param {Number} timer
+ * @param {Function} setFormState
+ */
 export const handlePause = (e, timer, setFormState) => {
   e.preventDefault();
   clearInterval(timer);

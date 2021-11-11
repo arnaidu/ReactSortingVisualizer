@@ -1,4 +1,5 @@
 import React from "react";
+//import { motion } from "framer-motion"; // ES6
 
 const ManyBars = React.memo(({ state }) => {
   var allBars = state.data.map((item, index) => {
@@ -13,7 +14,7 @@ const ManyBars = React.memo(({ state }) => {
       if (state.i === 0 && state.j === 0) {
         return (
           <div id="white-shadow" className="bar" key={item.id}>
-            <div id="blue-shadow" style={style} key={item.id}>
+            <div id="blue-shadow" style={style} key={2 * item.id}>
               {item.value}
             </div>
           </div>
@@ -22,7 +23,7 @@ const ManyBars = React.memo(({ state }) => {
 
       return (
         <div id="yellow-shadow" className="bar" key={item.id}>
-          <div id="blue-shadow" style={style} key={item.id}>
+          <div id="blue-shadow" style={style} key={2 * item.id}>
             {item.value}
           </div>
         </div>
@@ -33,7 +34,7 @@ const ManyBars = React.memo(({ state }) => {
     ) {
       return (
         <div id="green-shadow" className="bar" key={item.id}>
-          <div id="blue-shadow" style={style} key={item.id}>
+          <div id="blue-shadow" style={style} key={2 * item.id}>
             {item.value}
           </div>
         </div>
@@ -41,7 +42,7 @@ const ManyBars = React.memo(({ state }) => {
     } else {
       return (
         <div id="white-shadow" className="bar" key={item.id}>
-          <div id="blue-shadow" style={style} key={item.id}>
+          <div id="blue-shadow" style={style} key={2 * item.id}>
             {item.value}
           </div>
         </div>
@@ -57,11 +58,4 @@ const ManyBars = React.memo(({ state }) => {
     </>
   );
 });
-/*
-<OneBar
-  height={(item.value + 21) * 10}
-  //width={width}
-  //submit={submit}
-  //k={index}
-/>;*/
 export default ManyBars;

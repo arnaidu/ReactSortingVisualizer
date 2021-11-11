@@ -1,5 +1,6 @@
 import React from "react";
 
+/* Names for all buttons used */
 const buttonNames = {
   pause: "Pause",
   sort: "Sort",
@@ -9,6 +10,9 @@ const buttonNames = {
   continue: "Continue",
 };
 
+/**
+ * React component for all buttons used
+ */
 const Buttons = React.memo(
   ({
     handleSubmit,

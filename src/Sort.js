@@ -1,3 +1,5 @@
+/** IGNORE THIS FILE */
+
 import React, { useState } from "react";
 import ManyBars from "./bar-display/ManyBars";
 import { Finished } from "./staticText";

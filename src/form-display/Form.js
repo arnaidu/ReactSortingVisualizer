@@ -13,16 +13,19 @@ import {
   handleReset,
 } from "./buttonHandlers";
 
+/** Initial Form Inputs */
 const initialFormInput = {
   array: "",
   algorithm: "",
 };
 
+/** Initial Form Submit and Pause State */
 const initFormState = {
   submit: true, // allow for submitting the first time, then we will change it to prevent multiple submissions
   pause: true,
 };
 
+/** Component for the Form */
 const Form = ({ state, setState }) => {
   // this should include the Inputs, and the Buttons. Also move the button handlers here.
   const [formInput, setFormInput] = useState(initialFormInput);

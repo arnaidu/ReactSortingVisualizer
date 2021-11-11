@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Application Description
+
+This project is a sorting-visualizer for visualizing bubble sort made using a beginner level knowledge of React, HTML, CSS, and JavaScript.
+It focuses more on functionality rather than optimization. The project is also not responsive. I would recommend
+using it in Google Chrome, but it can work in FireFox as well. 
+
 ## Available Scripts
 
 In the project directory, you can run:

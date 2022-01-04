@@ -1,0 +1,76 @@
+.form-input {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    text-align: right;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.form-input label {
+    padding-right: 5px;
+    letter-spacing: 0.1em;
+    color: rgb(103, 252, 243);
+    text-transform: capitalize;
+    font-size: 0.75rem;
+}
+
+.input-error {
+    color: rgb(227, 11, 92);
+    font-size: 0.7em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.label1 {
+    grid-area: 1;
+}
+
+.label2 {
+    grid-area: 3;
+}
+
+.form-input input {
+    grid-area: 1;
+}
+
+.form-input select {
+    grid-area: 3;
+}
+
+.temp1 {
+    grid-area: 2;
+}
+
+.temp2 {
+    grid-area: 4;
+}
+
+.form-input input,
+select {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.55rem;
+    background-color: rgb(11, 45, 83);
+    color: rgb(103, 252, 243);
+    border-color: rgb(103, 252, 243);
+}
+
+@media (max-width: 1000px) {
+    .form-input label {
+        font-size: 0.6rem;
+    }
+
+    .form-input input,
+    select {
+        font-size: 0.35rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .form-input label {
+        font-size: 0.5rem;
+    }
+}
+
+select:hover {
+    cursor: pointer;
+}

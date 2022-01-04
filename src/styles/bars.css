@@ -1,0 +1,54 @@
+.container-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    box-shadow: inset 0px -10px 10px -10px rgb(103, 252, 243);
+    flex-grow: 2;
+}
+
+.bar {
+    background-color: rgb(227, 11, 92);
+    margin: 0 0.25em;
+    flex-basis: 1.7rem;
+    min-width: 1.7rem;
+    text-align: center;
+    color: rgb(45, 40, 62);
+    border-radius: 20px 20px 0 0;
+    box-shadow: inset 0px -10px 10px -10px rgb(103, 252, 243), 1px 0px 4px rgb(221, 209, 209);
+}
+
+@media (max-width: 956px) {
+    .bar {
+        flex-basis: 1rem;
+        font-size: 0.7rem;
+        min-width: 1rem;
+    }
+}
+@media (max-width: 586px) {
+    .bar {
+        flex-basis: 0.65rem;
+        font-size: 0.5rem;
+        min-width: 0.65rem;
+    }
+}
+
+@media (max-width: 376px) {
+    .bar {
+        flex-basis: 0.65rem;
+        font-size: 0.45rem;
+        min-width: 0.65rem;
+    }
+}
+
+.not-done {
+    opacity: 0.5;
+}
+
+.done {
+    opacity: 1;
+}
+
+.comparing {
+    background-color: rgb(240, 206, 218);
+}

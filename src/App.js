@@ -2,10 +2,6 @@ import { useState } from "react";
 import ManyBars from "./bar-display/ManyBars";
 import Form from "./form-display/Header";
 
-import "./styles/bars.css";
-import "./styles/header.css";
-import "./styles/App.css";
-
 const initState = {
     data: [],
     i: 0,

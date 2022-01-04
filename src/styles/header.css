@@ -17,19 +17,23 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 40px;
 }
+
 #output1 {
     margin-right: 30px;
     text-transform: uppercase;
     letter-spacing: 0.5em;
+    font-weight: 600;
 }
 #output2 {
     margin-right: 10px;
+    font-weight: 600;
 }
 
 #output3 {
     margin-left: 10px;
+    font-weight: 600;
 }
 
 #output1,
@@ -51,15 +55,7 @@
     #output1,
     #output2,
     #output3 {
-        font-size: 0.45rem;
-    }
-}
-
-@media (max-width: 800px) {
-    #output1,
-    #output2,
-    #output3 {
-        font-size: 0.35rem;
+        font-size: 0.5rem;
     }
 }
 
@@ -74,6 +70,7 @@
 #speed:hover {
     cursor: pointer;
 }
+
 #logo {
     font-size: 1.75rem;
     text-shadow: 1px 1px 4px rgba(234, 0, 255, 0.616), 1px 1px 4px rgba(234, 0, 255, 0.616),
@@ -100,6 +97,9 @@
     }
     #logo {
         font-size: 1rem;
+    }
+    .container-speed {
+        margin-top: 20px;
     }
 }
 

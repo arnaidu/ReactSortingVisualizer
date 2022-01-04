@@ -29,27 +29,26 @@ const Buttons = React.memo(
     }) => {
         return (
             <>
-                {console.log("buttons", formState)}
                 <div id="sort-cont-buttons" key="button1">
                     {formState.submit ? (
-                        <button className="btn" onClick={handleSubmit}>
+                        <button className="btn btn-enabled" onClick={handleSubmit}>
                             {buttonNames.sort}
                         </button>
                     ) : (
-                        <button className="btn" onClick={handleReset}>
+                        <button className="btn btn-enabled" onClick={handleReset}>
                             {buttonNames.reset}
                         </button>
                     )}
                     {formState.pause ? (
                         <button
-                            className="btn"
+                            className={formState.submit ? "btn" : "btn btn-enabled"}
                             disabled={formState.submit ? true : ""}
                             onClick={handleContinue}
                         >
                             {buttonNames.continue}
                         </button>
                     ) : (
-                        <button className="btn" onClick={handlePause}>
+                        <button className="btn btn-enabled" onClick={handlePause}>
                             {buttonNames.pause}
                         </button>
                     )}
@@ -57,7 +56,7 @@ const Buttons = React.memo(
 
                 <div id="prev-step-buttons" key="button2">
                     <button
-                        className="btn"
+                        className={formState.pause && !formState.submit ? "btn btn-enabled" : "btn"}
                         disabled={formState.pause && !formState.submit ? "" : true}
                         onClick={handlePrevWrapper}
                     >
@@ -65,7 +64,7 @@ const Buttons = React.memo(
                     </button>
 
                     <button
-                        className="btn"
+                        className={formState.pause && !formState.submit ? "btn btn-enabled" : "btn"}
                         disabled={formState.pause && !formState.submit ? "" : true}
                         onClick={handleNextWrapper}
                     >

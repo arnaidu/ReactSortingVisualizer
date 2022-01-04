@@ -1,1 +1,25 @@
+.input-error {
+    color: rgb(227, 11, 92);
+    font-size: 0.7em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
 
+@media (max-width: 1200px) {
+    .input-error {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .input-error {
+        font-size: 0.45rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .input-error {
+        font-size: 0.4rem;
+    }
+}

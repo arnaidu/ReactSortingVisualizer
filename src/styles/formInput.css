@@ -13,13 +13,6 @@
     font-size: 0.75rem;
 }
 
-.input-error {
-    color: rgb(227, 11, 92);
-    font-size: 0.7em;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
 .label1 {
     grid-area: 1;
 }

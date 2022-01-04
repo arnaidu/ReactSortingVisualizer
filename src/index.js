@@ -2,6 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
+import "./styles/bars.css";
+import "./styles/header.css";
+import "./styles/App.css";
+import "./styles/error.css";
+import "./styles/buttons.css";
+import "./styles/formInput.css";
+
 ReactDOM.render(
     <React.StrictMode>
         <App />

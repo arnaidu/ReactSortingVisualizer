@@ -7,14 +7,14 @@ import "../styles/bars.css";
 const ManyBars = React.memo(({ state }) => {
     var allBars = state.data.map((item, index) => {
         const style = {
-            height: (item.value + 21) * 10 + 50, // this is probably not the best way to do this
+            height: (item.value + 21) * 8 + 20, // this is probably not the best way to do this
         };
         // make both being compared for swapping whiter
         // if done, full opacity, otherwise low opacity
         if (state.j === index && !state.done) {
             if (state.i === 0 && state.j === 0) {
                 return (
-                    <div className="bar not-done" key={item.id} style={style}>
+                    <div className="bar comparing" key={item.id} style={style}>
                         {item.value}
                     </div>
                 );

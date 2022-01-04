@@ -26,7 +26,7 @@ const initState = {
  * @param {Function} setState
  * @param {Function} setFormState
  */
-const handleTimer = (state, setState, setFormState) => {
+export const handleTimer = (state, setState, setFormState) => {
     var storedNextState = state;
 
     setState((prevState) => {
@@ -150,6 +150,7 @@ export const handleChange = (e, setFormInput) => {
  * @param {Object} state
  * @param {Function} setState
  * @param {Function} setErrorState
+ * @param {Number} speedState
  * @returns
  */
 export const handleSubmit = (
@@ -160,7 +161,8 @@ export const handleSubmit = (
     errorState,
     state,
     setState,
-    setErrorState
+    setErrorState,
+    speedState
 ) => {
     e.preventDefault();
     if (!formState.submit) {
@@ -182,7 +184,7 @@ export const handleSubmit = (
             ...bubbleSortInit(state.data),
             timer: setInterval(() => {
                 handleTimer(state, setState, setFormState);
-            }, 1000),
+            }, speedState),
         });
     }
 };
@@ -211,29 +213,18 @@ export const handleReset = (e, setFormState, setState) => {
  * @param {Object} state
  * @param {Function} setFormState
  * @param {Function} setState
+ * @param {Number} speedState
  */
-export const handleContinue = (e, state, setFormState, setState) => {
+export const handleContinue = (e, state, setFormState, setState, speedState) => {
     e.preventDefault();
     setFormState((prevState) => {
         return { ...prevState, submit: false, pause: false };
     });
-    // -- this below causes problems with setInterval
-    /*
-    setState((prevState) => {
-       
-        return {
-            ...prevState,
-            timer: setInterval(() => {
-                handleTimer(state, setState, setFormState);
-            }, 1000),
-        };
-    });
-    */
     setState({
         ...state,
         timer: setInterval(() => {
             handleTimer(state, setState, setFormState);
-        }, 1000),
+        }, speedState),
     });
 };
 

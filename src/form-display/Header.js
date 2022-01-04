@@ -11,12 +11,8 @@ import {
     handlePause,
     handleContinue,
     handleReset,
+    handleTimer,
 } from "./buttonHandlers";
-
-/** Style Imports */
-import "../styles/header.css";
-import "../styles/buttons.css";
-import "../styles/formInput.css";
 
 /** Initial Form Inputs */
 const initialFormInput = {
@@ -30,12 +26,40 @@ const initFormState = {
     pause: true,
 };
 
+const initSpeedState = 400;
+
+var b = 1000 + 900 / 99;
+var m = -900 / 99;
+
+const determineSpeed = (speedValue) => {
+    return m * speedValue + b;
+};
+
+const determineSpeedUI = (speedState) => {
+    return (speedState - b) / m;
+};
+
 /** Component for the Form */
 const Form = ({ state, setState }) => {
     // this should include the Inputs, and the Buttons. Also move the button handlers here.
     const [formInput, setFormInput] = useState(initialFormInput);
     const [formState, setFormState] = useState(initFormState);
     const [errorState, setErrorState] = useState(error);
+    const [speedState, setSpeedState] = useState(initSpeedState);
+
+    const handleSpeed = (e) => {
+        e.preventDefault();
+        setSpeedState(determineSpeed(e.target.value));
+        if (!formState.pause) {
+            clearInterval(state.timer);
+            setState({
+                ...state,
+                timer: setInterval(() => {
+                    handleTimer(state, setState, setFormState);
+                }, speedState),
+            });
+        }
+    };
 
     const handleSubmitWrapper = (e) => {
         handleSubmit(
@@ -46,7 +70,8 @@ const Form = ({ state, setState }) => {
             errorState,
             state,
             setState,
-            setErrorState
+            setErrorState,
+            speedState
         );
     };
 
@@ -60,7 +85,7 @@ const Form = ({ state, setState }) => {
     };
 
     const handleContinueWrapper = (e) => {
-        handleContinue(e, state, setFormState, setState);
+        handleContinue(e, state, setFormState, setState, speedState);
     };
 
     const handleResetWrapper = (e) => {
@@ -101,14 +126,20 @@ const Form = ({ state, setState }) => {
             <div className="container-button" key="container-button">
                 <Buttons {...buttonInputs} formState={formState} key="Buttons" />
             </div>
-            {/*
+
             <div className="container-speed">
                 <output id="output1">Sorting Speed:</output>
                 <output id="output2">1</output>
-                <input type="range" id="speed" value="200" min="1" max="400" />
+                <input
+                    type="range"
+                    id="speed"
+                    value={`${determineSpeedUI(speedState)}`}
+                    min="1"
+                    max="200"
+                    onChange={handleSpeed}
+                />
                 <output id="output3">100</output>
             </div>
-            */}
         </>
     );
 };

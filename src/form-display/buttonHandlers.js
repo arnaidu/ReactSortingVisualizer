@@ -1,22 +1,20 @@
 import { processInputs, stringToData } from "./formProcessing";
 import { getErrorState } from "./errorHandling";
-import {
-  bubbleSortInit,
-  bubbleSortStep,
-  bubbleSortPrev,
-} from "../bar-display/bubbleSortState";
+import { bubbleSortInit, bubbleSortStep, bubbleSortPrev } from "../bar-display/bubbleSortState";
 
 /* Initial Form State */
 const initFormState = {
-  submit: true,
-  pause: true,
+    submit: true,
+    pause: true,
 };
 
 /* Initial Array State */
 const initState = {
-  data: [],
-  done: true,
-  timer: 0,
+    data: [],
+    i: 0,
+    j: 0,
+    done: true,
+    timer: 0,
 };
 
 /**
@@ -29,24 +27,29 @@ const initState = {
  * @param {Function} setFormState
  */
 const handleTimer = (state, setState, setFormState) => {
-  var storedNextState = state;
-  setState((prevState) => {
-    let nextState;
-    nextState = bubbleSortStep(prevState);
-    storedNextState = nextState;
-    if (nextState.done) {
-      clearInterval(prevState.timer);
-    }
-    return nextState;
-  });
+    var storedNextState = state;
 
-  setFormState((prevState) => {
-    return {
-      ...prevState,
-      submit: storedNextState.done,
-      pause: storedNextState.done,
-    };
-  });
+    setState((prevState) => {
+        let nextState = { ...bubbleSortStep({ ...prevState }) };
+        storedNextState = nextState;
+        if (nextState.done) {
+            clearInterval(prevState.timer);
+        }
+        return nextState;
+    });
+
+    setFormState((prevState) => {
+        if (storedNextState.done) {
+            return {
+                submit: true,
+                pause: true,
+            };
+        } else {
+            return {
+                ...prevState,
+            };
+        }
+    });
 };
 
 /**
@@ -61,36 +64,35 @@ const handleTimer = (state, setState, setFormState) => {
  * @param {Function} setFormState
  */
 export const handleNext = (
-  e,
-  formInput,
-  state,
-  errorState,
-  setErrorState,
-  setState,
-  setFormState
+    e,
+    formInput,
+    state,
+    errorState,
+    setErrorState,
+    setState,
+    setFormState
 ) => {
-  e.preventDefault();
-  if (state.data.length === 0) {
-    var properArray = processInputs(formInput.array);
-    var es = getErrorState(formInput, errorState, properArray);
-    setErrorState(es);
-    if (!es.errorState) {
-      formInput.array = properArray;
-      const numArray = stringToData(properArray);
-      setFormState((prevState) => {
-        return { ...prevState, submit: false };
-      });
-      setState({
-        ...bubbleSortInit(numArray),
-        timer: 0,
-      });
+    e.preventDefault();
+    if (state.data.length === 0) {
+        var properArray = processInputs(formInput.array);
+        var es = getErrorState(formInput, errorState, properArray);
+        setErrorState(es);
+        if (!es.errorState) {
+            formInput.array = properArray;
+            const numArray = stringToData(properArray);
+            setFormState((prevState) => {
+                return { ...prevState, submit: false, pause: true };
+            });
+            setState({
+                ...bubbleSortInit(numArray),
+                timer: 0,
+            });
+        }
+    } else {
+        setState({
+            ...bubbleSortStep(state),
+        });
     }
-  } else {
-    setState((prevState) => {
-      let nextState = bubbleSortStep(prevState);
-      return nextState;
-    });
-  }
 };
 
 /**
@@ -104,20 +106,20 @@ export const handleNext = (
  * @returns
  */
 export const handlePrev = (e, state, setState, formState, setFormState) => {
-  e.preventDefault();
-  if (formState.pause) {
-    setFormState((prevState) => {
-      return { ...prevState, submit: false };
-    });
-  }
-  if (state.data.length > 0) {
-    setState((prevState) => {
-      let nextState = bubbleSortPrev(prevState);
-      return nextState;
-    });
-  } else {
-    return false;
-  }
+    e.preventDefault();
+    if (formState.pause) {
+        setFormState((prevState) => {
+            return { ...prevState, submit: false, pause: true };
+        });
+    }
+    if (state.data.length > 0) {
+        setState((prevState) => {
+            let nextState = { ...bubbleSortPrev({ ...prevState }) };
+            return nextState;
+        });
+    } else {
+        return false;
+    }
 };
 
 /**
@@ -128,12 +130,12 @@ export const handlePrev = (e, state, setState, formState, setFormState) => {
  * @param {Function} setFormInput
  */
 export const handleChange = (e, setFormInput) => {
-  e.preventDefault();
-  let name = e.target.name;
-  let value = e.target.value;
-  setFormInput((prevState) => {
-    return { ...prevState, [name]: value };
-  });
+    e.preventDefault();
+    let name = e.target.name;
+    let value = e.target.value;
+    setFormInput((prevState) => {
+        return { ...prevState, [name]: value };
+    });
 };
 
 /**
@@ -151,38 +153,38 @@ export const handleChange = (e, setFormInput) => {
  * @returns
  */
 export const handleSubmit = (
-  e,
-  formState,
-  formInput,
-  setFormState,
-  errorState,
-  state,
-  setState,
-  setErrorState
+    e,
+    formState,
+    formInput,
+    setFormState,
+    errorState,
+    state,
+    setState,
+    setErrorState
 ) => {
-  e.preventDefault();
-  if (!formState.submit) {
-    return false;
-  }
+    e.preventDefault();
+    if (!formState.submit) {
+        return false;
+    }
 
-  var properArray = processInputs(formInput.array);
-  formInput.array = properArray;
-  var es = getErrorState(formInput, errorState, properArray);
-  setErrorState(es);
-  // if no error then proceed
-  if (!es.errorState) {
-    const data = stringToData(properArray);
-    formState.submit = false;
-    formState.pause = false;
-    state.data = data;
-    state.done = false;
-    setState({
-      ...bubbleSortInit(state.data),
-      timer: setInterval(() => {
-        handleTimer(state, setState, setFormState);
-      }, 200),
-    });
-  }
+    var properArray = processInputs(formInput.array);
+    formInput.array = properArray;
+    var es = getErrorState(formInput, errorState, properArray);
+    setErrorState(es);
+    // if no error then proceed
+    if (!es.errorState) {
+        const data = stringToData(properArray);
+        formState.submit = false;
+        formState.pause = false;
+        state.data = data;
+        state.done = false;
+        setState({
+            ...bubbleSortInit(state.data),
+            timer: setInterval(() => {
+                handleTimer(state, setState, setFormState);
+            }, 1000),
+        });
+    }
 };
 
 /**
@@ -193,12 +195,12 @@ export const handleSubmit = (
  * @param {Function} setState
  */
 export const handleReset = (e, setFormState, setState) => {
-  e.preventDefault();
-  setFormState({ ...initFormState });
-  setState((prevState) => {
-    clearInterval(prevState.timer);
-    return { ...initState };
-  });
+    e.preventDefault();
+    setFormState({ ...initFormState });
+    setState((prevState) => {
+        clearInterval(prevState.timer);
+        return { ...initState };
+    });
 };
 
 /**
@@ -211,31 +213,43 @@ export const handleReset = (e, setFormState, setState) => {
  * @param {Function} setState
  */
 export const handleContinue = (e, state, setFormState, setState) => {
-  e.preventDefault();
-  setFormState((prevState) => {
-    return { ...prevState, submit: false, pause: false };
-  });
-  setState((prevState) => {
-    return {
-      ...prevState,
-      timer: setInterval(() => {
-        handleTimer(state, setState, setFormState);
-      }, 200),
-    };
-  });
+    e.preventDefault();
+    setFormState((prevState) => {
+        return { ...prevState, submit: false, pause: false };
+    });
+    // -- this below causes problems with setInterval
+    /*
+    setState((prevState) => {
+       
+        return {
+            ...prevState,
+            timer: setInterval(() => {
+                handleTimer(state, setState, setFormState);
+            }, 1000),
+        };
+    });
+    */
+    setState({
+        ...state,
+        timer: setInterval(() => {
+            handleTimer(state, setState, setFormState);
+        }, 1000),
+    });
 };
 
 /**
  * Handles the pause functionality of sorting visualizer
  *
  * @param {Object} e
- * @param {Number} timer
+ * @param {Object} state
  * @param {Function} setFormState
  */
-export const handlePause = (e, timer, setFormState) => {
-  e.preventDefault();
-  clearInterval(timer);
-  setFormState((prevState) => {
-    return { ...prevState, submit: false, pause: true };
-  });
+export const handlePause = (e, state, setFormState) => {
+    e.preventDefault();
+    clearInterval(state.timer);
+    setFormState((prevState) => {
+        clearInterval(prevState.timer);
+
+        return { ...prevState, submit: false, pause: true };
+    });
 };

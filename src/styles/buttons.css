@@ -1,0 +1,82 @@
+.btn {
+    box-shadow: 3px 3px 0 0 rgba(227, 11, 90, 0.774);
+    margin-top: 20px;
+    width: 35%;
+    padding: 10px 0px;
+    text-transform: uppercase;
+    border-radius: 15px;
+    border-color: rgb(227, 11, 92);
+    color: rgb(227, 11, 92);
+    background-color: rgb(45, 40, 62);
+    letter-spacing: 0.5em;
+    font-size: 0.75rem;
+}
+
+/* rename class and add to JSX in react buttons to trigger the active class when clicked */
+.btn:active {
+    box-shadow: 1px 1px 0 0 rgba(227, 11, 90, 0.774);
+}
+
+.btn:hover {
+    text-shadow: 1px 1px 4px rgba(234, 0, 255, 0.616), 1px 1px 4px rgba(234, 0, 255, 0.616);
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+#sort-cont-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+}
+
+#prev-step-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+}
+
+.container-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+@media (max-width: 1200px) {
+    .btn {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .btn {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .btn {
+        font-size: 0.35rem;
+    }
+    .btn {
+        width: 40%;
+    }
+    #sort-cont-buttons,
+    #prev-step-buttons {
+        width: 75%;
+    }
+}
+
+@media (max-width: 376px) {
+    .btn {
+        width: 40%;
+    }
+    #sort-cont-buttons,
+    #prev-step-buttons {
+        width: 75%;
+    }
+
+    .container-button {
+        margin-top: 30px;
+    }
+}

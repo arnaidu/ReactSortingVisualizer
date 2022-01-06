@@ -132,7 +132,7 @@ export const ErrorBanner = (props) => {
     if (errorState && type === "array" && existInputArray && isValidArray && !boundsGood) {
         return formError.numbersErrorMessage;
     }
-    return <p className="input-error"></p>;
+    return <p></p>;
 };
 
 export const error = {

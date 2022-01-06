@@ -128,17 +128,21 @@ const Form = ({ state, setState }) => {
             </div>
 
             <div className="container-speed">
-                <output id="output1">Sorting Speed:</output>
-                <output id="output2">Slow</output>
-                <input
-                    type="range"
-                    id="speed"
-                    value={`${determineSpeedUI(speedState)}`}
-                    min="1"
-                    max="200"
-                    onChange={handleSpeed}
-                />
-                <output id="output3">Fast</output>
+                <div className="flex">
+                    <output id="output1">Sorting Speed:</output>
+                </div>
+                <div className="flex">
+                    <output id="output2">Slow</output>
+                    <input
+                        type="range"
+                        id="speed"
+                        value={`${determineSpeedUI(speedState)}`}
+                        min="1"
+                        max="200"
+                        onChange={handleSpeed}
+                    />
+                    <output id="output3">Fast</output>
+                </div>
             </div>
         </>
     );

@@ -129,7 +129,7 @@ const Form = ({ state, setState }) => {
 
             <div className="container-speed">
                 <output id="output1">Sorting Speed:</output>
-                <output id="output2">1</output>
+                <output id="output2">Slow</output>
                 <input
                     type="range"
                     id="speed"
@@ -138,7 +138,7 @@ const Form = ({ state, setState }) => {
                     max="200"
                     onChange={handleSpeed}
                 />
-                <output id="output3">100</output>
+                <output id="output3">Fast</output>
             </div>
         </>
     );

@@ -73,7 +73,7 @@ export const getErrorState = (formInput, errorState, properArray) => {
     }
     const existInputAlgo = formInput.algorithm !== "";
     const existInputArray = formInput.array !== "";
-    const properLengthArray = properArray.length <= 39;
+    const properLengthArray = stringToData(properArray).length <= 20;
     return {
         isValidArray: isValid,
         existInputAlgo: existInputAlgo,
